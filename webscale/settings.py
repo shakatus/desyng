@@ -78,8 +78,21 @@ WSGI_APPLICATION = 'webscale.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES['default'] = dj_database_url.config(
-    default='sqlite:////path-to-my/database.sqlite')
+if bool(os.environ.get('LOCAL_DEV', False)): 
+  DATABASES = {
+      'default' : {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'desyng',
+        'USER': 'yeisson',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '5432'
+      }
+  } 
+else: 
+  DATABASES = {
+      'default' : dj_database_url.config(default='postgres://yeisson:@:5432/desyng')
+  }
 
 
 # Password validation
