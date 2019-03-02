@@ -29,7 +29,7 @@ SECRET_KEY = 'uj-t3(fzhefu5@2ci-t_96jokdi7)e-b65_zcyir)q0oe40yn9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106']
+ALLOWED_HOSTS = ['https://infinite-brushlands-78049.herokuapp.com','192.168.0.106']
 
 
 # Application definition
