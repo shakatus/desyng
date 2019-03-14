@@ -1,4 +1,3 @@
-from rest_framework.decorators import action
 from rest_framework import viewsets
 from scales.serializers import PointSerializer, ScaleSerializer, RaiseSerializer
 from scales.models import Point, Scale, Raise
@@ -23,7 +22,17 @@ class ScaleViewSets(viewsets.ModelViewSet):
 class RaiseViewSets(viewsets.ModelViewSet):
 	queryset = Raise.objects.all()
 	serializer_class = RaiseSerializer
+	
+	(detail=True)
+	def raises(self, request, pk=None):
+		owner = self.get_object()
+		raises = Raise.objects.filter(owner=owner)
 
+		context = {
+			'request':request
+		}
+		raise_serializer =  RaiseSerializer(raises,many=True,context=context)
+		return Response(raise_serializer.data)
 
 	def perform_create(self, serializer):
 
@@ -34,13 +43,8 @@ class RaiseViewSets(viewsets.ModelViewSet):
 def Owner(device):
 	#device.amount = 12
 	#device.save()
-	scale=device.codigo.split("_")[0]
-	bascula = Scale.objects.get(id = scale)
-	device.scale=bascula
-#	device.save()
-
-	q = Raise.objects.all().filter(scale = bascula.id).order_by('-timestamp')[:2]
-	if (len(q)==2):
+	q = Raise.objects.all().filter(scale=device.point).order_by('timestamp')[:2]
+	if (q==2):
 		ultimo=q[1].quantity
 	else:
 		ultimo=0
@@ -56,7 +60,6 @@ def Owner(device):
 		device.amount   = 0.25*((resultado-ultimo)%65535)
 	except Exception  as e:
 		device.base64 = str(e)
-
 	device.save()
 #	buf_decode = base64.b64decode(device.base64)
 #+str(device.id)

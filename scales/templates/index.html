@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style>
+ table{
+	display: table;
+ }
+ table tr{
+	display: table-cell
+ }
+ table tr td{
+	display: block;
+ }
+</style>
+</head>
+<body>
+<table>
+	{%for scale in scales %}
+	<tr>
+		<td>{{ scale.location  }}</td>
+		{% for registro in scale.raise_set.all %}
+		<td>
+		   {{ registro.timestamp.date }}
+		</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+</body>
+</html>

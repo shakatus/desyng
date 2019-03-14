@@ -1,0 +1,11 @@
+from django.contrib import admin
+from .models import Scale, Point, Raise
+
+
+#admin.site.register(Scale)
+class ScaleAdmin():
+	list_display = ('')
+admin.site.register(Scale,ScaleAdmin)
+admin.site.register(Point)
+admin.site.register(Raise)
+# Register your models here.

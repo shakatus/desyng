@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{%for scale in scales %}
+	<h1>{{scale..raise_set.all()  }}</h1>
+		{% for registro in scale.Raise %}
+		   <h2>{{ registro.timestamp }}</h2>
+		{% endfor %}
+	{% endfor %}
+</body>
+</html>

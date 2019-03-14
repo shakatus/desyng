@@ -1,0 +1,17 @@
+
+from django.contrib import admin
+from .models import Scale, Point, Raise
+
+class ScalesInline(admin.TabularInline):
+	model = Scale
+class RaisesInline(
+#admin.site.register(Scale)
+#admin.site.register(Point)
+@admin.register(Point,Scale)
+
+class PointAdmin(admin.ModelAdmin):
+	inlines = [ScalesInline]
+class ScaleAdmin(admin.ModelAdmin):
+	inlines = [RaisesInline]
+admin.site.register(Raise)
+# Register your models here.

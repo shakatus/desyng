@@ -22,7 +22,9 @@ class ScaleSerializer(serializers.ModelSerializer):
 
 class RaiseSerializer(serializers.Serializer):
 
-	scale_id	= serializers.RelatedField(source='Scale',read_only=True)
+	scale		= serializers.RelatedField(source='Scale', AssertionError: Relational field must provide a `queryset` argument, override `get_queryset`, or set read_only=`Tru
+e`.
+)
 #	scale 		= serializers.IntegerField()
 	quantity	= serializers.IntegerField()
 	amount  	= serializers.DecimalField(max_digits=30, decimal_places=15)
@@ -33,4 +35,4 @@ class RaiseSerializer(serializers.Serializer):
 	def create(self, validated_data):
 
 
-		return Raise.objects.create(**validated_data)
+		return Raise.objects.create(**validated_data)   
